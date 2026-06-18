@@ -26,7 +26,7 @@ locals {
 ##################################################################################
 
 resource "aws_instance" "main" {
-  count         = length(data.tfe_outputs.networking.nonsensitive_values.public_subnets)
+  count         = length(data.tfe_outputs.networking.nonsensitive_values.public_subnets_ids)
   ami           = nonsensitive(data.aws_ssm_parameter.amzn2_linux.value)
   instance_type = var.instance_type
   subnet_id     = data.tfe_outputs.networking.nonsensitive_values.public_subnets[count.index]
@@ -97,7 +97,7 @@ resource "aws_lb" "main" {
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.webapp_http_inbound_sg.id]
-  subnets                    = data.tfe_outputs.networking.nonsensitive_values.public_subnets
+  subnets                    = data.tfe_outputs.networking.nonsensitive_values.public_subnets_ids
   enable_deletion_protection = false
 
   tags = local.common_tags
