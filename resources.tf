@@ -93,11 +93,11 @@ resource "null_resource" "webapp" {
 }
 
 resource "aws_lb" "main" {
-  name               = "${local.name_prefix}-webapp"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.webapp_http_inbound_sg.id]
-  subnets            = data.tfe_outputs.networking.nonsensitive_values.public_subnets
+  name                       = "${local.name_prefix}-webapp"
+  internal                   = false
+  load_balancer_type         = "application"
+  security_groups            = [aws_security_group.webapp_http_inbound_sg.id]
+  subnets                    = data.tfe_outputs.networking.nonsensitive_values.public_subnets
   enable_deletion_protection = false
 
   tags = local.common_tags
