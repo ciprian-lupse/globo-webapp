@@ -40,7 +40,6 @@ resource "aws_instance" "main" {
   subnet_id            = data.tfe_outputs.networking.nonsensitive_values.public_subnet_ids[count.index]
   vpc_security_group_ids = [
     aws_security_group.webapp_http_inbound_sg.id,
-    aws_security_group.webapp_ssh_inbound_sg.id,
     aws_security_group.webapp_outbound_sg.id,
   ]
 
